@@ -23,6 +23,7 @@
  */
 const path = require("path");
 const fs = require("fs");
+// eslint-disable-next-line import/no-unresolved
 const { WebpackPluginServe: ServePlugin } = require("webpack-plugin-serve");
 
 const root = process.cwd();
@@ -39,17 +40,15 @@ if (orgaIndex > 0) {
 let output = process.env.BUNDLE_OUTPUT;
 if (!output) {
   if (fs.existsSync(path.join(root, "pom.xml"))) {
-    output = path.join(root, "target", name + "-" + packageJSON.version, "webapp", "assets");
+    output = path.join(root, "target", `${name}-${packageJSON.version}`, "webapp", "assets");
   } else {
     output = path.join(root, "build", "webapp", "assets");
   }
 }
 
-module.exports = function(mode) {
+module.exports = mode => {
   const plugins = [];
-  const entries = [
-    path.resolve(__dirname, "webpack-public-path.js"), packageJSON.main || "src/main/js/index.js"
-  ];
+  const entries = [path.resolve(__dirname, "webpack-public-path.js"), packageJSON.main || "src/main/js/index.js"];
 
   if (mode !== "production") {
     plugins.push(
@@ -120,7 +119,7 @@ module.exports = function(mode) {
     output: {
       path: output,
       filename: "[name].bundle.js",
-      chunkFilename: name + ".[name].chunk.js",
+      chunkFilename: `${name}.[name].chunk.js`,
       library: name,
       libraryTarget: "amd"
     }

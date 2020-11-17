@@ -21,8 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/* global __webpack_public_path__ */
+
 // setup webpack public path:
 // https://stackoverflow.com/questions/39879680/example-of-setting-webpack-public-path-at-runtime
 // https://github.com/coryhouse/react-slingshot/pull/207/files
+
+// eslint-disable-next-line
 __webpack_public_path__ = window.ctxPath + "/assets/";

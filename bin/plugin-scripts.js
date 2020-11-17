@@ -33,6 +33,7 @@ const commands = fs
     if (script.endsWith(".js")) {
       return script.replace(".js", "");
     }
+    return undefined;
   })
   .filter(cmd => !!cmd);
 
@@ -44,9 +45,10 @@ const commandIndex = args.findIndex(arg => {
 
 const commandName = commandIndex === -1 ? args[0] : args[commandIndex];
 if (!commandName) {
-  console.log(`Use plugin-scripts [${commands.join(', ')}]`);
+  console.log(`Use plugin-scripts [${commands.join(", ")}]`);
 } else if (commands.includes(commandName)) {
-  const command = require(path.join(commandDir, commandName + ".js"))
+  // eslint-disable-next-line
+  const command = require(path.join(commandDir, `${commandName}.js`));
   command(args.slice(commandIndex + 1));
 } else {
   console.log(`Unknown script "${commandName}".`);

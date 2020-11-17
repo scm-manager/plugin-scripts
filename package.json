@@ -9,6 +9,9 @@
   "bin": {
     "ui-scripts": "./bin/plugin-scripts.js"
   },
+  "scripts": {
+    "check": "eslint bin src"
+  },
   "dependencies": {
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
@@ -21,12 +24,18 @@
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
   },
+  "devDependencies": {
+    "@scm-manager/eslint-config": "2.9.1",
+    "@scm-manager/prettier-config": "2.9.1",
+    "@scm-manager/tsconfig": "2.9.1"
+  },
   "eslintConfig": {
     "extends": "@scm-manager/eslint-config",
     "rules": {
       "no-console": "off"
     }
   },
+  "prettier": "@scm-manager/prettier-config",
   "publishConfig": {
     "access": "public"
   }
