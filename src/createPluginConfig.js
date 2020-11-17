@@ -23,6 +23,7 @@
  */
 const path = require("path");
 const fs = require("fs");
+const { WebpackPluginServe: ServePlugin } = require("webpack-plugin-serve");
 
 const root = process.cwd();
 
@@ -35,15 +36,40 @@ if (orgaIndex > 0) {
   name = name.substring(orgaIndex + 1);
 }
 
+let output = process.env.BUNDLE_OUTPUT;
+if (!output) {
+  if (fs.existsSync(path.join(root, "pom.xml"))) {
+    output = path.join(root, "target", name + "-" + packageJSON.version, "webapp", "assets");
+  } else {
+    output = path.join(root, "build", "webapp", "assets");
+  }
+}
+
 module.exports = function(mode) {
+  const plugins = [];
+  const entries = [
+    path.resolve(__dirname, "webpack-public-path.js"), packageJSON.main || "src/main/js/index.js"
+  ];
+
+  if (mode !== "production") {
+    plugins.push(
+      new ServePlugin({
+        static: output,
+        status: false,
+        liveReload: true
+      })
+    );
+    entries.unshift("webpack-plugin-serve/client");
+  }
+
   return {
     context: root,
     entry: {
-      [name]: [path.resolve(__dirname, "webpack-public-path.js"), packageJSON.main || "src/main/js/index.js"]
+      [name]: entries
     },
     mode,
     stats: "minimal",
-    devtool: "source-map",
+    devtool: "cheap-module-eval-source-map",
     target: "web",
     node: {
       fs: "empty",
@@ -90,10 +116,11 @@ module.exports = function(mode) {
     resolve: {
       extensions: [".ts", ".tsx", ".js", ".jsx", ".css", ".scss", ".json"]
     },
+    plugins,
     output: {
-      path: path.join(root, "target", `${name}-${packageJSON.version}`, "webapp", "assets"),
+      path: output,
       filename: "[name].bundle.js",
-      chunkFilename: `${name}.[name].chunk.js`,
+      chunkFilename: name + ".[name].chunk.js",
       library: name,
       libraryTarget: "amd"
     }
