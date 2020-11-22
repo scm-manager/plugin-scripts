@@ -46,10 +46,7 @@ const sync = (reference, packageJSON, key) => {
   keys.forEach(name => {
     if (packageJSON[key][name] !== reference[key][name]) {
       if (buildPackages.includes(name)) {
-        const refVersion = semver.minVersion(reference[key][name]);
-        const packageJsonVersion = semver.minVersion(packageJSON[key][name]);
-
-        if (semver.gt(refVersion, packageJsonVersion)) {
+        if (semver.gtr(reference[key][name], packageJSON[key][name])) {
           console.log("build dependency", name, "has changed from", packageJSON[key][name], "to", reference[key][name]);
           packageJSON[key][name] = reference[key][name];
           changed = true;
