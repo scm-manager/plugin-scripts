@@ -25,6 +25,7 @@
 const path = require("path");
 const fs = require("fs");
 const sync = require("../sync-package-json");
+const { yarn } = require("../yarn");
 
 const readJson = filePath => {
   return JSON.parse(fs.readFileSync(filePath, { encoding: "utf-8" }));
@@ -44,5 +45,6 @@ module.exports = () => {
   const changed = sync(reference, packageJson);
   if (changed) {
     writeJson(packageJsonPath, packageJson);
+    yarn(["install"]);
   }
 };
