@@ -11,7 +11,8 @@
   },
   "scripts": {
     "check": "eslint bin src",
-    "test": "jest src"
+    "test": "jest src",
+    "test-ci": "jest --ci --reporters=default --reporters=jest-junit"
   },
   "dependencies": {
     "babel-loader": "^8.0.6",
