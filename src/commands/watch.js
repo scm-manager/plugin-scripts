@@ -24,13 +24,15 @@
 const webpack = require("webpack");
 const createPluginConfig = require("../createPluginConfig");
 
-const config = createPluginConfig("development");
-const compiler = webpack(config);
+module.exports = () => {
+  const config = createPluginConfig("development");
+  const compiler = webpack(config);
 
-compiler.watch({}, (_, stats) => {
-  console.log(
-    stats.toString({
-      colors: true
-    })
-  );
-});
+  compiler.watch({}, (_, stats) => {
+    console.log(
+      stats.toString({
+        colors: true
+      })
+    );
+  });
+};
