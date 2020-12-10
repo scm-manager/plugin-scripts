@@ -9,6 +9,32 @@
 
 Plugin scripts provide commands which are required to build and push the frontend code of SCM-Manager Plugins.
 
+## Commands
+
+* **build** Creates production ready bundle from frontend code
+* **watch** Creates a development bundle, rebundle it on file change and sends a change notification to the browser
+* **publish** Publishes the code on the npm registry
+* **postinstall** Aligns the plugin dependencies with those from the core of SCM-Manager
+
+## Installation
+
+Install the `@scm-manager/plugin-scripts` as dev dependency:
+
+```bash
+yarn add --dev @scm-manager/jest-preset
+```
+
+Add the desired commands to the script section of your `package.json`:
+
+```json
+"scripts": {
+  "build": "plugin-scripts build",
+  "watch": "plugin-scripts watch",
+  "publish": "plugin-scripts publish",
+  "postinstall": "plugin-scripts postinstall"
+}
+```
+
 ## Need help?
 
 Looking for more guidance? Full documentation lives on our [homepage](https://www.scm-manager.org/docs/) or the dedicated pages for our [plugins](https://www.scm-manager.org/plugins/). Do you have further ideas or need support?
