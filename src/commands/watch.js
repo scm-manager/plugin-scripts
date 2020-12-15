@@ -28,11 +28,26 @@ module.exports = () => {
   const config = createPluginConfig("development");
   const compiler = webpack(config);
 
-  compiler.watch({}, (_, stats) => {
+  const watcher = compiler.watch({}, (_, stats) => {
     console.log(
       stats.toString({
         colors: true
       })
     );
   });
+
+  // if we could access the parent id of our current process
+  // we start watching it, because a changing parent id means
+  // that the parent process has died.
+  // On linux our process does not receive any signal if our parent dies,
+  // e.g.: ctrl+c in gradle
+  if (process.ppid) {
+    const ppid = process.ppid;
+    setInterval(() => {
+      if (ppid !== process.ppid) {
+        watcher.close();
+        process.exit();
+      }
+    }, 500);
+  }
 };
