@@ -42,7 +42,7 @@ module.exports = () => {
   // On linux our process does not receive any signal if our parent dies,
   // e.g.: ctrl+c in gradle
   if (process.ppid) {
-    const ppid = process.ppid;
+    const { ppid } = process;
     setInterval(() => {
       if (ppid !== process.ppid) {
         watcher.close();
