@@ -51,11 +51,14 @@ module.exports = mode => {
   const entries = [path.resolve(__dirname, "webpack-public-path.js"), packageJSON.main || "src/main/js/index.js"];
 
   if (mode !== "production") {
+    const servePort = process.env.SERVE_PORT || "55000";
+
     plugins.push(
       new ServePlugin({
         static: output,
         status: false,
-        liveReload: true
+        liveReload: true,
+        port: Number(servePort)
       })
     );
     entries.unshift("webpack-plugin-serve/client");
