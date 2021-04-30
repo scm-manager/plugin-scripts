@@ -97,4 +97,22 @@ describe("sync package.json", () => {
     expect(packageJSON.devDependencies["@scm-manager/jest"]).toBe("2.10.0");
     expect(packageJSON.devDependencies["@scm-manager/eslint-config"]).toBe("^2.11.0");
   });
+
+  it("should sync new created plugins", () => {
+    const reference = {
+      devDependencies: {
+        "@scm-manager/babel-preset": "2.10.0"
+      }
+    };
+
+    const packageJSON = {
+      devDependencies: {
+        "@scm-manager/ui-plugins": "2.10.0",
+        "@scm-manager/plugin-scripts": "^1.0.2"
+      }
+    };
+
+    const synced = sync(reference, packageJSON);
+    expect(synced).toBe(true);
+  });
 });

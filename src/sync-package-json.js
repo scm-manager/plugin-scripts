@@ -35,6 +35,15 @@ const buildPackages = [
   "@scm-manager/plugin-scripts"
 ];
 
+const needsUpdate = (referenceVersion, packageJSONVersion) => {
+  const referenceMinVersion = semver.minVersion(referenceVersion);
+  if (packageJSONVersion) {
+    const packageJsonMinVersion = semver.minVersion(packageJSONVersion);
+    return semver.gt(referenceMinVersion, packageJsonMinVersion);
+  }
+  return true;
+};
+
 const sync = (reference, packageJSON, key) => {
   if (!packageJSON[key]) {
     packageJSON[key] = {};
@@ -46,9 +55,7 @@ const sync = (reference, packageJSON, key) => {
   keys.forEach(name => {
     if (packageJSON[key][name] !== reference[key][name]) {
       if (buildPackages.includes(name)) {
-        const referenceVersion = semver.minVersion(reference[key][name]);
-        const packageJsonVersion = semver.minVersion(packageJSON[key][name]);
-        if (semver.gt(referenceVersion, packageJsonVersion)) {
+        if (needsUpdate(reference[key][name], packageJSON[key][name])) {
           console.log("build dependency", name, "has changed from", packageJSON[key][name], "to", reference[key][name]);
           packageJSON[key][name] = reference[key][name];
           changed = true;
