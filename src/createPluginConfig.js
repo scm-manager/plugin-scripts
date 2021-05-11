@@ -84,6 +84,7 @@ module.exports = mode => {
       "react-i18next",
       "react-router-dom",
       "styled-components",
+      "@scm-manager/ui-api",
       "@scm-manager/ui-types",
       "@scm-manager/ui-extensions",
       "@scm-manager/ui-components",
@@ -91,6 +92,8 @@ module.exports = mode => {
       "query-string",
       "redux",
       "react-redux",
+      "react-hook-form",
+      "react-query",
       /^@scm-manager\/scm-.*-plugin$/i
     ],
     module: {
