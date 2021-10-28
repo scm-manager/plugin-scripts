@@ -71,13 +71,8 @@ module.exports = mode => {
     },
     mode,
     stats: "minimal",
-    devtool: "cheap-module-eval-source-map",
+    devtool: "eval-cheap-module-source-map",
     target: "web",
-    node: {
-      fs: "empty",
-      net: "empty",
-      tls: "empty"
-    },
     externals: [
       "react",
       "react-dom",
@@ -119,7 +114,12 @@ module.exports = mode => {
       ]
     },
     resolve: {
-      extensions: [".ts", ".tsx", ".js", ".jsx", ".css", ".scss", ".json"]
+      extensions: [".ts", ".tsx", ".js", ".jsx", ".css", ".scss", ".json"],
+      fallback: {
+        fs: false,
+        net: false,
+        tls: false
+      }
     },
     plugins,
     output: {

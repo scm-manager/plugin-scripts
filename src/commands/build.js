@@ -28,13 +28,15 @@ module.exports = () => {
   const config = createPluginConfig("production");
 
   webpack(config, (err, stats) => {
+    if (err || stats.hasErrors()) {
+      console.log(err);
+      process.exit(1);
+    }
+
     console.log(
       stats.toString({
         colors: true
       })
     );
-    if (err || stats.hasErrors()) {
-      process.exit(1);
-    }
   });
 };
