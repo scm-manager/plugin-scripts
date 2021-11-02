@@ -121,6 +121,11 @@ module.exports = mode => {
         tls: false
       }
     },
+    resolveLoader: {
+      modules: [path.join(__dirname, "..", "node_modules"), "node_modules"],
+      extensions: [".js", ".json"],
+      mainFields: ["loader", "main"]
+    },
     plugins,
     output: {
       path: output,
