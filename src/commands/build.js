@@ -28,8 +28,13 @@ module.exports = () => {
   const config = createPluginConfig("production");
 
   webpack(config, (err, stats) => {
-    if (err || stats.hasErrors()) {
+    if (err) {
       console.log(err);
+      process.exit(1);
+    }
+
+    if (stats && stats.hasErrors()) {
+      console.log(stats.compilation.errors);
       process.exit(1);
     }
 
