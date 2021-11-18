@@ -132,7 +132,8 @@ module.exports = mode => {
       filename: "[name].bundle.js",
       chunkFilename: `${name}.[name].chunk.js`,
       library: name,
-      libraryTarget: "amd"
+      libraryTarget: "amd",
+      publicPath: ""
     }
   };
 };
