@@ -58,6 +58,7 @@ module.exports = mode => {
         static: output,
         status: false,
         liveReload: true,
+        host: "127.0.0.1",
         port: Number(servePort)
       })
     );
