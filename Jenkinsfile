@@ -20,6 +20,7 @@ pipeline {
       }
       steps {
         // read version from brach, set it and commit it
+        sh "git checkout ${env.BRANCH_NAME}"
         sh "yarn version --no-git-tag-version --new-version ${releaseVersion}"
         authGit 'SCM-Manager','add package.json'
         commit "release version ${releaseVersion}"
