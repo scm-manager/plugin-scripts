@@ -22,17 +22,17 @@ pipeline {
         // read version from brach, set it and commit it
         sh "git checkout ${env.BRANCH_NAME}"
         sh "yarn version --no-git-tag-version --new-version ${releaseVersion}"
-        authGit 'SCM-Manager','add package.json'
+        sh 'git add package.json'
         commit "release version ${releaseVersion}"
 
         // fetch all remotes from origin
-        authGit 'SCM-Manager', 'config "remote.origin.fetch" "+refs/heads/*:refs/remotes/origin/*"'
+        sh 'git config "remote.origin.fetch" "+refs/heads/*:refs/remotes/origin/*"'
         authGit 'SCM-Manager', 'fetch --all'
 
         // checkout, reset and merge
-        authGit 'SCM-Manager', 'checkout main'
-        authGit 'SCM-Manager', 'reset --hard origin/main'
-        authGit 'SCM-Manager', "merge --ff-only ${env.BRANCH_NAME}"
+        sh 'git checkout main'
+        sh 'git reset --hard origin/main'
+        sh "git merge --ff-only ${env.BRANCH_NAME}"
 
         // set tag
         tag releaseVersion
@@ -75,13 +75,14 @@ pipeline {
       }
       steps {
         // merge main in to develop
-        authGit 'SCM-Manager', 'git checkout develop'
-        authGit 'SCM-Manager', 'merge main'
+        sh 'git checkout develop'
+        sh 'git merge main'
 
         // push changes back to remote repository
-        authGit 'SCM-Manager', 'push origin main --tags'
-        authGit 'SCM-Manager', 'push origin develop --tags'
-        authGit 'SCM-Manager', "push origin :${env.BRANCH_NAME}"
+        authGit 'SCM-Manager', 'push origin --tags'
+        authGit 'SCM-Manager', 'push origin main '
+        authGit 'SCM-Manager', 'push origin develop'
+        authGit 'SCM-Manager', "push -d origin ${env.BRANCH_NAME}"
       }
     }
 
