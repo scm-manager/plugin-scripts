@@ -80,21 +80,14 @@ module.exports = mode => {
       "react-i18next",
       "react-router-dom",
       "styled-components",
-      "@scm-manager/ui-api",
-      "@scm-manager/ui-types",
-      "@scm-manager/ui-extensions",
-      "@scm-manager/ui-components",
-      "@scm-manager/ui-forms",
-      "@scm-manager/ui-buttons",
-      "@scm-manager/ui-overlays",
-      "@scm-manager/ui-layout",
       "classnames",
       "query-string",
       "redux",
       "react-redux",
       "react-hook-form",
       "react-query",
-      /^@scm-manager\/scm-.*-plugin$/i
+      /^@scm-manager\/scm-.*-plugin$/i,
+      /^@scm-manager\/ui-.+$/i
     ],
     module: {
       rules: [
