@@ -1,6 +1,6 @@
 {
   "name": "@scm-manager/plugin-scripts",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Bundle plugin frontend code of SCM-Manager plugins",
   "main": "src/index.js",
   "author": "SCM-Team <scm-team@cloudogu.com>",
