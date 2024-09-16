@@ -25,11 +25,18 @@ const path = require("path");
 const fs = require("fs");
 // eslint-disable-next-line import/no-unresolved
 const { WebpackPluginServe: ServePlugin } = require("webpack-plugin-serve");
+const VerifyScmImportsFromUiPluginsOnly = require("./verifyScmImportsFromUiPluginsOnly.js")
 
 const root = process.cwd();
 
 const packageJsonPath = path.join(root, "package.json");
 const packageJSON = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: "UTF-8" }));
+let uiPluginsPackageJsonPath = path.join(root, "node_modules", "@scm-manager", "ui-plugins", "package.json");
+console.log(uiPluginsPackageJsonPath);
+if (!fs.existsSync(uiPluginsPackageJsonPath)) {
+  uiPluginsPackageJsonPath = require.resolve('@scm-manager/ui-plugins/package.json');
+}
+const uiPluginsPackageJSON = JSON.parse(fs.readFileSync(uiPluginsPackageJsonPath, {encoding: "UTF-8"}));
 
 let { name } = packageJSON;
 const orgaIndex = name.indexOf("/");
@@ -46,9 +53,11 @@ if (!output) {
   }
 }
 
+const uiPluginsDependencies = Object.keys(uiPluginsPackageJSON.dependencies);
+
 module.exports = mode => {
-  const plugins = [];
-  const entries = [path.resolve(__dirname, "webpack-public-path.js"), packageJSON.main || "src/main/js/index.js"];
+  const plugins = [new VerifyScmImportsFromUiPluginsOnly(uiPluginsDependencies)];
+  const entries = [path.resolve(__dirname, "webpack-public-path.js"), packageJSON.main || "src/main/js/index.ts"];
 
   if (mode !== "production") {
     const servePort = process.env.SERVE_PORT || "55000";
@@ -75,19 +84,8 @@ module.exports = mode => {
     devtool: "eval-cheap-module-source-map",
     target: "web",
     externals: [
-      "react",
-      "react-dom",
-      "react-i18next",
-      "react-router-dom",
-      "styled-components",
-      "classnames",
-      "query-string",
-      "redux",
-      "react-redux",
-      "react-hook-form",
-      "react-query",
+      ...uiPluginsDependencies,
       /^@scm-manager\/scm-.*-plugin$/i,
-      /^@scm-manager\/ui-.+$/i
     ],
     module: {
       rules: [

@@ -22,7 +22,7 @@
     "sass-loader": "^12.3.0",
     "semver": "^7.3.5",
     "style-loader": "^3.3.1",
-    "webpack": "^5.60.0",
+    "webpack": "^5.94.0",
     "webpack-plugin-serve": "^1.4.1"
   },
   "devDependencies": {
