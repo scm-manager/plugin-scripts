@@ -86,6 +86,11 @@ module.exports = mode => {
     externals: [
       ...uiPluginsDependencies,
       /^@scm-manager\/scm-.*-plugin$/i,
+      // We need to exclude the core package from the externals, because this
+      // has not been listed as externals in older core versions.
+      // Without this exclusion, the build fails, because webpack tries to bundle
+      // the typescript code from ui-core, which fails.
+      "@scm-manager/ui-core"
     ],
     module: {
       rules: [
