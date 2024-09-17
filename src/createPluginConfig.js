@@ -18,7 +18,7 @@ const path = require("path");
 const fs = require("fs");
 // eslint-disable-next-line import/no-unresolved
 const { WebpackPluginServe: ServePlugin } = require("webpack-plugin-serve");
-const VerifyScmImportsFromUiPluginsOnly = require("./verifyScmImportsFromUiPluginsOnly.js")
+const VerifyScmImportsFromUiPluginsOnly = require("./verifyScmImportsFromUiPluginsOnly.js");
 
 const root = process.cwd();
 
@@ -27,9 +27,9 @@ const packageJSON = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: "UTF
 let uiPluginsPackageJsonPath = path.join(root, "node_modules", "@scm-manager", "ui-plugins", "package.json");
 console.log(uiPluginsPackageJsonPath);
 if (!fs.existsSync(uiPluginsPackageJsonPath)) {
-  uiPluginsPackageJsonPath = require.resolve('@scm-manager/ui-plugins/package.json');
+  uiPluginsPackageJsonPath = require.resolve("@scm-manager/ui-plugins/package.json");
 }
-const uiPluginsPackageJSON = JSON.parse(fs.readFileSync(uiPluginsPackageJsonPath, {encoding: "UTF-8"}));
+const uiPluginsPackageJSON = JSON.parse(fs.readFileSync(uiPluginsPackageJsonPath, { encoding: "UTF-8" }));
 
 let { name } = packageJSON;
 const orgaIndex = name.indexOf("/");
