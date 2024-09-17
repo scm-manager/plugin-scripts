@@ -4,7 +4,7 @@
   "description": "Bundle plugin frontend code of SCM-Manager plugins",
   "main": "src/index.js",
   "author": "SCM-Team <scm-team@cloudogu.com>",
-  "license": "MIT",
+  "license": "AGPL-3.0-only",
   "private": false,
   "bin": {
     "plugin-scripts": "./bin/plugin-scripts.js"
