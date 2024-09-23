@@ -24,7 +24,9 @@ const buildPackages = [
   "@scm-manager/jest-preset",
   "@scm-manager/prettier-config",
   "@scm-manager/tsconfig",
-  "@scm-manager/plugin-scripts"
+  "@scm-manager/plugin-scripts",
+  "jest",
+  "@types/jest",
 ];
 
 const needsUpdate = (referenceVersion, packageJSONVersion) => {
