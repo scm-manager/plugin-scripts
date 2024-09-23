@@ -19,15 +19,17 @@ pipeline {
         branch pattern: 'release/*', comparator: 'GLOB'
       }
       steps {
-        // read version from brach, set it and commit it
-        sh "git checkout ${env.BRANCH_NAME}"
-        sh "yarn version --no-git-tag-version --new-version ${releaseVersion}"
-        sh 'git add package.json'
-        commit "release version ${releaseVersion}"
-
         // fetch all remotes from origin
         sh 'git config "remote.origin.fetch" "+refs/heads/*:refs/remotes/origin/*"'
         authGit 'SCM-Manager', 'fetch --all'
+
+        // read version from brach, set it and commit it
+        sh "git checkout ${env.BRANCH_NAME}"
+        sh "git reset --hard origin/${env.BRANCH_NAME}"
+        sh "git tag -d ${releaseVersion} || true"
+        sh "yarn version --no-git-tag-version --new-version ${releaseVersion}"
+        sh 'git add package.json'
+        commit "release version ${releaseVersion}"
 
         // checkout, reset and merge
         sh 'git checkout main'
