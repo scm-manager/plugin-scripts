@@ -26,7 +26,7 @@ const buildPackages = [
   "@scm-manager/tsconfig",
   "@scm-manager/plugin-scripts",
   "jest",
-  "@types/jest",
+  "@types/jest"
 ];
 
 const needsUpdate = (referenceVersion, packageJSONVersion) => {

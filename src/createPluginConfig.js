@@ -18,7 +18,7 @@ const path = require("path");
 const fs = require("fs");
 // eslint-disable-next-line import/no-unresolved
 const { WebpackPluginServe: ServePlugin } = require("webpack-plugin-serve");
-const VerifyScmImportsFromUiPluginsOnly = require("./verifyScmImportsFromUiPluginsOnly.js");
+const VerifyScmImportsFromUiPluginsOnly = require("./verifyScmImportsFromUiPluginsOnly");
 
 const root = process.cwd();
 

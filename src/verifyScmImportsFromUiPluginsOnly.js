@@ -2,6 +2,7 @@ class VerifyScmImportsFromUiPluginsOnly {
   constructor(externalModuleNames) {
     this.externalModuleNames = externalModuleNames;
   }
+
   apply(compiler) {
     compiler.hooks.normalModuleFactory.tap("VerifyScmImportsFromUiPluginsOnly", normalModuleFactory => {
       normalModuleFactory.hooks.beforeResolve.tap("VerifyScmImportsFromUiPluginsOnly", resolveData => {
