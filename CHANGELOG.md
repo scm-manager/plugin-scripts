@@ -4,8 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.6.1 - 2024-09-23
+### Changed
+- Changeover to AGPL-3.0-only license
+- Allow newer versions for jest in plugins
+
+## 1.6.0 - 2024-09-17
+### Changed
+- Read external core dependencies from ui packages
+
 ## 1.5.0 - 2023-12-14
-#### Changed
+### Changed
 - Use regular expression for externals coming from @scm-manager/ui-*
 
 ## 1.4.0
